@@ -5,27 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uppini Niranjan</title>
     <style>
-        /* Style for a fullscreen canvas */
+        /* Basic styling */
         body, html {
             margin: 0;
-            overflow: hidden;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow-x: hidden;
             font-family: Arial, sans-serif;
             color: #ffffff;
             background-color: #000;
         }
         #content {
-            position: absolute;
             text-align: center;
             z-index: 1;
+            margin-top: 60px;
+            padding: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #0077ff;
+            margin-top: 40px;
+            font-size: 2em;
+        }
+        p, ul {
+            text-align: left;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        /* Style for the sections */
+        section {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        /* Canvas full-screen background */
         #canvas {
             position: absolute;
             top: 0;
             left: 0;
+            z-index: 0;
         }
     </style>
 </head>
@@ -33,8 +56,40 @@
     <div id="content">
         <h1>Welcome to Uppini Niranjan's Website</h1>
         <p>This is my personal site hosted on GitHub Pages.</p>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I am Uppini Niranjan, currently pursuing a Master’s in Artificial Intelligence at Cardiff University.</p>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <ul>
+                <li><strong>Master’s in Artificial Intelligence</strong>, Cardiff University - Present</li>
+                <li><strong>Bachelor of Technology in Artificial Intelligence</strong>, Mahindra University</li>
+            </ul>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <ul>
+                <li><strong>Intern - Digital Innovator</strong>, Didgiup Private Limited</li>
+                <li><strong>Emotion Analysis of CHAT-GPT Generated Content</strong>, Mahindra University</li>
+                <li><strong>Malware Analysis Using Deep Learning</strong>, Mahindra University</li>
+            </ul>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <p>Proficient in Python, TensorFlow, Keras, FastAPI, and more. Experienced in machine learning, NLP, and data visualization.</p>
+        </section>
+
+        <section id="interests">
+            <h2>Interests</h2>
+            <p>Mathematics, Cricket, Video Games, Photography, and AI Research.</p>
+        </section>
     </div>
-    <!-- Canvas element for Three.js animation -->
+
     <canvas id="canvas"></canvas>
 
     <!-- Three.js Library -->
