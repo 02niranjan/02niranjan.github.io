@@ -3,154 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uppini Niranjan</title>
+    <title>Uppini Niranjan - Interactive 3D Universe</title>
     <style>
-        /* Basic styling */
         body, html {
             margin: 0;
+            height: 100%;
             overflow: hidden;
-            font-family: Arial, sans-serif;
-            color: #ffffff;
             background-color: #000;
+            font-family: Arial, sans-serif;
+            color: white;
         }
         #content {
-            text-align: center;
-            z-index: 1;
-            margin-top: 60px;
-            padding: 20px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
+            position: absolute;
             z-index: 10;
-        }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-        h2 {
-            color: #0077ff;
-            margin-top: 40px;
-            font-size: 2em;
-        }
-        p, ul {
-            text-align: left;
-            margin: 10px 0;
-            line-height: 1.6;
-        }
-        /* Style for the sections */
-        section {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 85%;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.8); /* Slight background to enhance readability */
             border-radius: 10px;
-            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
-        /* Canvas full-screen background */
+        h1, h2 {
+            font-size: 3em;
+            margin: 0.5em 0;
+        }
+        p, li {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin: 0.5em 0;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
         #canvas {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
     <div id="content">
         <h1>Welcome to Uppini Niranjan's Website</h1>
-        <p>This is my personal site hosted on GitHub Pages.</p>
-
-        <section id="about">
-            <h2>About Me</h2>
-            <p>I am Uppini Niranjan, currently pursuing a Master’s in Artificial Intelligence at Cardiff University.</p>
-        </section>
-
-        <section id="education">
-            <h2>Education</h2>
-            <ul>
-                <li><strong>Master’s in Artificial Intelligence</strong>, Cardiff University - Present</li>
-                <li><strong>Bachelor of Technology in Artificial Intelligence</strong>, Mahindra University</li>
-            </ul>
-        </section>
-
-        <section id="experience">
-            <h2>Experience</h2>
-            <ul>
-                <li><strong>Intern - Digital Innovator</strong>, Didgiup Private Limited</li>
-                <li><strong>Emotion Analysis of CHAT-GPT Generated Content</strong>, Mahindra University</li>
-                <li><strong>Malware Analysis Using Deep Learning</strong>, Mahindra University</li>
-            </ul>
-        </section>
-
-        <section id="skills">
-            <h2>Skills</h2>
-            <p>Proficient in Python, TensorFlow, Keras, FastAPI, and more. Experienced in machine learning, NLP, and data visualization.</p>
-        </section>
-
-        <section id="interests">
-            <h2>Interests</h2>
-            <p>Mathematics, Cricket, Video Games, Photography, and AI Research.</p>
-        </section>
+        <h2>About Me</h2>
+        <p>I am Uppini Niranjan, currently pursuing a Master’s in Artificial Intelligence at Cardiff University. Passionate about technology and innovation.</p>
+        <h2>Education</h2>
+        <ul>
+            <li>Master’s in Artificial Intelligence, Cardiff University - Present</li>
+            <li>Bachelor of Technology in Artificial Intelligence, Mahindra University</li>
+        </ul>
+        <h2>Experience</h2>
+        <ul>
+            <li>Intern - Digital Innovator, Didgiup Private Limited</li>
+            <li>Research Assistant - Emotion Analysis of Chat-GPT Generated Content, Mahindra University</li>
+            <li>Project Developer - Malware Analysis Using Deep Learning, Mahindra University</li>
+        </ul>
+        <h2>Skills</h2>
+        <p>Proficient in Python, TensorFlow, Keras, FastAPI, and more. Experienced in machine learning, NLP, and data visualization.</p>
+        <h2>Interests</h2>
+        <p>Keen interest in Mathematics, Cricket, Video Games, Photography, and exploring AI advancements.</p>
     </div>
 
     <canvas id="canvas"></canvas>
 
-    <!-- Three.js and GLTFLoader Libraries -->
+    <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
-
     <script>
-        // Set up the scene, camera, and renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
 
-        // Lighting
-        const light = new THREE.PointLight(0xffffff, 1.5);
-        light.position.set(10, 10, 10);
-        scene.add(light);
-
-        camera.position.z = 5;
-
-        // Load the Iron Man Model
-        const loader = new THREE.GLTFLoader();
-        loader.load('path/to/ironman.glb', function(gltf) {
-            const model = gltf.scene;
-            scene.add(model);
-
-            // Position model and create a firing point for the blast
-            model.position.set(0, -1, 0);
-
-            // Create the energy blast effect
-            const blastGeometry = new THREE.SphereGeometry(0.05, 32, 32);
-            const blastMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
-            const blast = new THREE.Mesh(blastGeometry, blastMaterial);
-            blast.position.set(1, 0, 0);  // Adjust to match Iron Man's hand position
-            scene.add(blast);
-
-            // Animate the blast firing
-            function animate() {
-                requestAnimationFrame(animate);
-
-                // Rotate model for a dynamic effect
-                model.rotation.y += 0.01;
-
-                // Move blast outward
-                blast.position.x += 0.1;  // Move blast forward for firing effect
-                if (blast.position.x > 5) blast.position.x = 1;  // Reset position after firing
-
-                renderer.render(scene, camera);
-            }
-            animate();
+        const particles = [];
+        const particleCount = 2000;
+        const particleMaterial = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.5,
+            map: new THREE.TextureLoader().load('https://threejs.org/examples/textures/particle2.png'),
+            blending: THREE.AdditiveBlending,
+            transparent: true
         });
-        
-        // Handle window resizing
+
+        const particleGeometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount; i++) {
+            const x = (Math.random() - 0.5) * 1000;
+            const y = (Math.random() - 0.5) * 1000;
+            const z = (Math.random() - 0.5) * 1000;
+            positions[i * 3] = x;
+            positions[i * 3 + 1] = y;
+            positions[i * 3 + 2] = z;
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particleSystem);
+
+        camera.position.z = 500;
+
+        let mouseX = 0, mouseY = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            particleSystem.rotation.y += 0.001;
+            camera.position.x += (mouseX - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - window.innerWidth / 2) * 2;
+            mouseY = (event.clientY - window.innerHeight / 2) * 2;
+        });
+
         window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
     </script>
 </body>
