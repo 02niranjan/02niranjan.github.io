@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uppini Niranjan - Dynamic Geometric Animation</title>
+    <title>Uppini Niranjan - 3D Interactive Resume</title>
     <style>
         body, html {
             height: 100%;
@@ -12,115 +12,89 @@
             overflow: hidden;
             font-family: 'Arial', sans-serif;
             color: white;
-        }
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            pointer-events: none;
         }
-        #content {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            max-width: 500px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
-            overflow-y: auto;
-            z-index: 1000;
-            pointer-events: all; /* Ensures this div is interactable */
-            height: 50%; /* Adjustable based on content size */
-            scrollbar-width: thin;
-            scrollbar-color: blue white;
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
         }
         canvas {
-            position: fixed;
             width: 100%;
             height: 100%;
         }
-        h1, h2 {
-            margin: 0.5em 0;
-        }
-        p, li {
-            font-size: 1.2em;
-            margin-bottom: 0.5em;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div id="overlay">
+    <div id="info">
         <h1>Welcome to Uppini Niranjan's Website</h1>
-        <p>Exploring new dimensions in Artificial Intelligence</p>
-    </div>
-    <div id="content">
-        <h2>About Me</h2>
-        <p>I am Uppini Niranjan, currently pursuing a Master’s in Artificial Intelligence at Cardiff University. My interests include Machine Learning, Deep Learning, and the development of AI applications to solve real-world problems.</p>
-        <h2>Education</h2>
-        <ul>
-            <li>Master’s in Artificial Intelligence - Cardiff University (2024-Present)</li>
-            <li>Bachelor of Technology in Computer Science - Mahindra University (2020-2024)</li>
-        </ul>
-        <h2>Professional Experience</h2>
-        <ul>
-            <li>Intern - Digital Innovator, Didgiup Private Limited (Jan 2024 - May 2024)
-                <p>Worked on Door Specification Classification project and Vision Pro Projects.</p>
-            </li>
-            <li>Summer Internship, IIT Jammu (June 2023 - August 2023)
-                <p>Worked on Data Acquisition System for Smart Ankle-Foot Device.</p>
-            </li>
-            <li>Third year Project, Mahindra University (2022 - 2023)
-                <p>Conducted research on emotion analysis using NLP techniques.</p>
-            </li>
-        </ul>
-        <h2>Skills</h2>
-        <p>Proficient in Python, TensorFlow, Keras, and FastAPI. Skilled in NLP, computer vision, and statistical data analysis.</p>
-        <h2>Interests</h2>
-        <p>Apart from my technical interests, I enjoy playing cricket, photography, and exploring new technologies in AI.</p>
     </div>
 
-    <!-- Include Three.js -->
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         let camera, scene, renderer;
-        let geometry, material, mesh;
+        let objects = [];
+        let raycaster = new THREE.Raycaster();
+        let mouse = new THREE.Vector2();
+        let INTERSECTED;
+        const infoDiv = document.getElementById('info');
 
         init();
         animate();
 
         function init() {
+            scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
             camera.position.z = 500;
-
-            scene = new THREE.Scene();
-
-            geometry = new THREE.IcosahedronGeometry(200, 1);
-            material = new THREE.MeshBasicMaterial({ wireframe: true, color: 0x00ff00 });
-            mesh = new THREE.Mesh(geometry, material);
-            scene.add(mesh);
 
             renderer = new THREE.WebGLRenderer();
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
 
+            // Create objects
+            const geometry = [new THREE.BoxGeometry(50, 50, 50), new THREE.SphereGeometry(35, 32, 16), new THREE.ConeGeometry(35, 70, 32)];
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+
+            // Positions
+            const positions = [[-150, 0, 0], [0, 0, 0], [150, 0, 0]];
+            const titles = ["About Me", "Education", "Experience"];
+
+            geometry.forEach((geo, i) => {
+                const object = new THREE.Mesh(geo, material);
+                object.position.set(...positions[i]);
+                object.userData = { title: titles[i] };
+                scene.add(object);
+                objects.push(object);
+            });
+
             document.addEventListener('mousemove', onDocumentMouseMove, false);
+            document.addEventListener('click', onDocumentClick, false);
             window.addEventListener('resize', onWindowResize, false);
         }
 
         function onDocumentMouseMove(event) {
-            mesh.rotation.x = event.clientY * 0.005;
-            mesh.rotation.y = event.clientX * 0.005;
+            event.preventDefault();
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        function onDocumentClick(event) {
+            if (INTERSECTED) {
+                const content = {
+                    "About Me": "I am Uppini Niranjan, currently pursuing a Master’s in Artificial Intelligence at Cardiff University. My interests include Machine Learning, Deep Learning, and the development of AI applications.",
+                    "Education": "Master’s in Artificial Intelligence - Cardiff University (2024-Present)<br>Bachelor of Technology in Computer Science - Mahindra University (2020-2024)",
+                    "Experience": "Intern - Digital Innovator, Didgiup Private Limited (Jan 2024 - May 2024)<br>Summer Internship, IIT Jammu (June 2023 - August 2023)<br>Third year Project, Mahindra University (2022 - 2023)"
+                };
+                infoDiv.innerHTML = `<h1>${INTERSECTED.userData.title}</h1><p>${content[INTERSECTED.userData.title]}</p>`;
+                infoDiv.classList.remove('hidden');
+            }
         }
 
         function onWindowResize() {
@@ -131,8 +105,23 @@
 
         function animate() {
             requestAnimationFrame(animate);
-            mesh.rotation.x += 0.005;
-            mesh.rotation.y += 0.005;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(objects);
+
+            if (intersects.length > 0) {
+                if (INTERSECTED != intersects[0].object) {
+                    if (INTERSECTED) INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
+                    INTERSECTED = intersects[0].object;
+                    INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
+                    INTERSECTED.material.color.setHex(0xffff00);
+                }
+            } else {
+                if (INTERSECTED) INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
+                INTERSECTED = null;
+                infoDiv.classList.add('hidden');
+            }
+
             renderer.render(scene, camera);
         }
     </script>
