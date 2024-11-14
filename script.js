@@ -1,4 +1,4 @@
-// Add a 'shrink' effect on the profile image when scrolling down
+// Add scroll-triggered shrink effect for profile image
 window.addEventListener("scroll", () => {
     const heroSection = document.querySelector(".hero");
     const heroHeight = heroSection.offsetHeight;
@@ -11,7 +11,7 @@ window.addEventListener("scroll", () => {
     }
 });
 
-// Scroll-triggered fade-in effect for each section
+// Scroll-triggered animations for each section
 const sections = document.querySelectorAll(".content-section");
 
 function revealSections() {
@@ -32,7 +32,7 @@ window.addEventListener("scroll", revealSections);
 // Initial call to reveal any sections in view on load
 revealSections();
 
-// 3D Parallax Effect on Mouse Move
+// 3D Parallax Effect on Mouse Move in Hero Section
 document.addEventListener("mousemove", (e) => {
     const heroImage = document.querySelector(".profile-image img");
     const speed = 0.05;
@@ -58,3 +58,23 @@ sections.forEach(section => {
         section.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
     });
 });
+
+// Fade-in and Slide-up Animation for Section Text Content
+const fadeElements = document.querySelectorAll(".content-section p, .content-section ul");
+
+function fadeInSections() {
+    fadeElements.forEach((element) => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight * 0.8) {
+            element.style.opacity = 1;
+            element.style.transform = "translateY(0)";
+        }
+    });
+}
+
+window.addEventListener("scroll", fadeInSections);
+
+// Initial call to show any elements in view on load
+fadeInSections();
