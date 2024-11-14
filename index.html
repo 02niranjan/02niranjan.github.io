@@ -9,24 +9,29 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden;
+            overflow: hidden; /* Prevent scrolling on the body */
             font-family: 'Arial', sans-serif;
-            background: #000022; /* Dark blue background */
+            background: #000022; /* Deep space blue */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         #content {
-            position: absolute;
-            top: 50px;
-            left: 50px;
-            color: #ffffff; /* White text */
+            position: relative;
+            top: -50%; /* Adjust based on total height for vertical centering */
+            transform: translateY(50%); /* Centrally align content */
+            color: #ffffff;
             padding: 20px;
-            width: calc(100% - 100px);
-            max-width: 960px;
-            background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+            width: 90%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 1); /* Cyan glow */
+            box-shadow: 0 0 20px rgba(0, 255, 255, 1);
             z-index: 2;
-            overflow: auto;
-            scrollbar-color: #00FFFF #0000FF; /* Scrollbar styling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: 80vh; /* Limit content height */
+            scrollbar-width: thin;
+            scrollbar-color: #00FFFF #000022; /* Style for scrollbar */
         }
         h1, h2 {
             text-align: center;
