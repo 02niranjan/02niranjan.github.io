@@ -1,12 +1,10 @@
 /* Root Color Variables */
 :root {
-    --light-bg: #f8f9fa;
-    --light-gray: #e9ecef;
-    --medium-gray: #dee2e6;
-    --gray: #ced4da;
-    --dark-gray: #495057;
-    --darker-gray: #343a40;
-    --darkest-gray: #212529;
+    --olive-green: #606c38;
+    --dark-green: #283618;
+    --light-cream: #fefae0;
+    --warm-yellow: #dda15e;
+    --burnt-orange: #bc6c25;
 }
 
 /* Global Styles */
@@ -14,12 +12,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Verdana', sans-serif;
 }
 
 body {
-    background-color: var(--light-bg);
-    color: var(--darkest-gray);
+    background-color: var(--light-cream);
+    color: var(--dark-green);
     overflow-x: hidden;
     scroll-behavior: smooth;
 }
@@ -34,12 +32,12 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
-    background-color: var(--light-gray);
+    background-color: var(--dark-green);
 }
 
 .profile-image {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -49,25 +47,27 @@ body {
 
 .profile-image img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
+    filter: brightness(1.2) contrast(1.2); /* Enhance brightness and contrast */
 }
 
 .hero h1 {
-    font-size: 2.8em;
-    color: var(--darker-gray);
+    font-size: 2.5em;
+    color: var(--warm-yellow);
     margin-bottom: 10px;
+    line-height: 1.2;
 }
 
 .hero p {
     max-width: 600px;
-    color: var(--gray);
-    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.9); /* Higher opacity for clarity */
+    font-size: 1.3em;
 }
 
 /* Shrink Profile Image on Scroll */
 body.shrink .profile-image {
-    transform: scale(0.6); /* Shrinks the image on scroll */
+    transform: scale(0.8); /* Reduce shrink effect */
 }
 
 /* Video Background Styling */
@@ -79,7 +79,20 @@ body.shrink .profile-image {
     height: 100%;
     object-fit: cover;
     z-index: -1; /* Send video behind the content */
-    opacity: 0.4; /* Slight transparency for readability */
+    opacity: 0.6; /* Enhance video brightness */
+    filter: brightness(1.1) contrast(1.1); /* Additional video contrast */
+}
+
+/* Bright Overlay for Videos */
+.content-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(220, 105, 40, 0.3); /* Subtle burnt orange overlay */
+    z-index: -1;
 }
 
 /* Content Sections */
@@ -92,7 +105,7 @@ body.shrink .profile-image {
     text-align: center;
     min-height: 100vh;
     position: relative;
-    color: var(--darker-gray);
+    color: var(--dark-green);
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease, transform 0.6s ease;
@@ -100,24 +113,26 @@ body.shrink .profile-image {
 
 /* Different Background Colors for Each Section */
 #about {
-    background-color: var(--light-bg);
+    background-color: var(--light-cream);
 }
 
 #education {
-    background-color: var(--light-gray);
+    background-color: var(--olive-green);
 }
 
 #experience {
-    background-color: var(--medium-gray);
+    background-color: var(--dark-green);
+    color: var(--light-cream);
 }
 
 #skills {
-    background-color: var(--gray);
+    background-color: var(--warm-yellow);
+    color: var(--dark-green);
 }
 
 #interests {
-    background-color: var(--darker-gray);
-    color: var(--light-bg);
+    background-color: var(--burnt-orange);
+    color: var(--light-cream);
 }
 
 /* Fade-in Effect for Each Section */
@@ -128,22 +143,22 @@ body.shrink .profile-image {
 
 /* Section Headings */
 .content-section h2 {
-    font-size: 2em;
+    font-size: 2.2em;
     margin-bottom: 20px;
-    color: var(--darkest-gray);
-    background: rgba(255, 255, 255, 0.8); /* Translucent background for readability */
+    color: var(--dark-green);
+    background: rgba(255, 255, 255, 0.85); /* Soft white translucent background */
     padding: 10px 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .content-section p, .content-section ul {
     max-width: 800px;
-    font-size: 1.1em;
-    color: var(--dark-gray);
-    background: rgba(255, 255, 255, 0.8);
+    font-size: 1.2em;
+    color: var(--dark-green);
+    background: rgba(255, 255, 255, 0.85);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     text-align: left;
@@ -157,13 +172,13 @@ body.shrink .profile-image {
 
 .content-section ul li {
     margin-bottom: 10px;
-    color: var(--darker-gray);
+    color: var(--dark-green);
 }
 
 /* For Subsections */
 .content-section h3 {
-    font-size: 1.5em;
-    color: var(--darkest-gray);
+    font-size: 1.6em;
+    color: var(--warm-yellow);
     margin-bottom: 10px;
 }
 
