@@ -11,8 +11,8 @@
     --experience-text-color: #bc6c25;
     --skills-box-color: #3a5a40;
     --skills-text-color: #011627;
-    --interests-box-color: #ffffff; /* Snow-like background */
-    --interests-text-color: #6b705c; /* Dark, snow-appropriate color */
+    --interests-box-color: #ffffff;
+    --interests-text-color: #6b705c;
 }
 
 /* Global Styles */
@@ -40,6 +40,7 @@ body {
     background-color: var(--hero-bg);
     position: relative;
     overflow: hidden;
+    padding-left: 50px; /* Move content slightly to the right */
 }
 
 .profile-image {
@@ -50,6 +51,8 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
     transition: transform 0.4s ease;
+    position: relative;
+    left: -20px; /* Move the profile image slightly to the left */
 }
 
 .profile-image img {
@@ -65,12 +68,16 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
     line-height: 1.2;
+    position: relative;
+    left: -20px; /* Keep the heading aligned with the profile image */
 }
 
 .hero p {
     max-width: 600px;
     color: var(--profile-text-color);
     font-size: 1.3em;
+    position: relative;
+    left: -20px; /* Align with the profile image and heading */
 }
 
 /* Scroll-triggered Shrink Effect */
@@ -79,7 +86,7 @@ body.shrink .profile-image {
 }
 
 /* Video Background Styling */
-.background-video {
+.hero .background-video {
     position: absolute;
     top: 0;
     left: 0;
@@ -145,7 +152,7 @@ body.shrink .profile-image {
     margin-bottom: 20px;
     color: var(--primary-black);
     font-weight: bold;
-    background: rgba(255, 255, 255, 0.85); /* Light translucent background */
+    background: rgba(255, 255, 255, 0.85);
     padding: 10px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -156,7 +163,7 @@ body.shrink .profile-image {
     max-width: 800px;
     font-size: 1.2em;
     color: inherit;
-    background: rgba(255, 255, 255, 0.85); /* Translucent background for readability */
+    background: rgba(255, 255, 255, 0.85);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
