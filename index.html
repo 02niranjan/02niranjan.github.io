@@ -3,141 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uppini Niranjan - AI Exploration</title>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: #000022; /* Deep space blue background */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden; /* Prevents scrolling on the body */
-        }
-        #content {
-            width: 90%;
-            max-width: 800px;
-            max-height: 80vh; /* Set max-height to 80% of the viewport to allow scrolling */
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 1); /* Cyan glow */
-            overflow-y: auto; /* Enables vertical scrolling */
-            scrollbar-width: thin;
-            scrollbar-color: #00FFFF #000022; /* Cyan scrollbar styling */
-            color: #ffffff; /* White text */
-            z-index: 1; /* Ensure it stays on top of the canvas */
-        }
-        h1, h2 {
-            text-align: center;
-            color: #00FFFF; /* Cyan color for headings */
-        }
-        p, li {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        canvas {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-    </style>
+    <title>Uppini Niranjan - AI Researcher</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="content">
-        <h1>Welcome to Uppini Niranjan's Website</h1>
-        <p>Exploring new dimensions in Artificial Intelligence</p>
-        <h2>About Me</h2>
-        <p>I am Uppini Niranjan, currently pursuing a Master’s in Artificial Intelligence at Cardiff University. My interests include Machine Learning, Deep Learning, and the development of AI applications to solve real-world problems.</p>
-        <h2>Education</h2>
-        <ul>
-            <li>Master’s in Artificial Intelligence - Cardiff University (2024-Present)</li>
-            <li>Bachelor of Technology in Computer Science - Mahindra University (2020-2024)</li>
-        </ul>
-        <h2>Professional Experience</h2>
-        <ul>
-            <li>Intern - Digital Innovator, Didgiup Private Limited (Jan 2024 - May 2024)
-                <p>Worked on Door Specification Classification project and Vision Pro Projects.</p>
-            </li>
-            <li>Summer Internship, IIT Jammu (June 2023 - August 2023)
-                <p>Worked on Data Acquisition System for Smart Ankle-Foot Device.</p>
-            </li>
-            <li>Third year Project, Mahindra University (2022 - 2023)
-                <p>Conducted research on emotion analysis using NLP techniques.</p>
-            </li>
-        </ul>
-        <h2>Skills</h2>
-        <p>Proficient in Python, TensorFlow, Keras, and FastAPI. Skilled in NLP, computer vision, and statistical data analysis.</p>
-        <h2>Interests</h2>
-        <p>Apart from my technical interests, I enjoy playing cricket, photography, and exploring new technologies in AI.</p>
-    </div>
-    <!-- Three.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        let camera, scene, renderer;
-        let particles = [];
 
-        init();
-        animate();
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>Uppini Niranjan</h1>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-        function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1500);
-            camera.position.z = 500;
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Exploring the Future of Artificial Intelligence</h2>
+            <p>Passionate about leveraging AI to solve real-world problems and push the boundaries of technology.</p>
+        </div>
+    </section>
 
-            renderer = new THREE.WebGLRenderer({ alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
+    <!-- Main Content -->
+    <main>
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h3>About Me</h3>
+                <p>I am Uppini Niranjan, currently pursuing a Master’s in Artificial Intelligence at Cardiff University. I specialize in Machine Learning, Deep Learning, and AI-driven solutions that make a real impact.</p>
+            </div>
+        </section>
 
-            // Create various shapes
-            const shapes = [
-                new THREE.SphereGeometry(0.5, 24, 24),
-                new THREE.BoxGeometry(1, 1, 1),
-                new THREE.ConeGeometry(0.5, 1, 32),
-                new THREE.CylinderGeometry(0.5, 0.5, 1, 32)
-            ];
-            const colors = [0xffffff, 0x00ffaa, 0xff0000, 0xffff00]; // White, aqua, red, yellow
+        <!-- Experience Section -->
+        <section id="experience" class="section">
+            <div class="container">
+                <h3>Professional Experience</h3>
+                <ul>
+                    <li>
+                        <strong>Intern - Digital Innovator</strong> (Didgiup Private Limited, Jan 2024 - May 2024)
+                        <p>Worked on Door Specification Classification and Vision Pro Projects to drive innovation using machine learning techniques.</p>
+                    </li>
+                    <li>
+                        <strong>Summer Internship</strong> (IIT Jammu, June 2023 - August 2023)
+                        <p>Developed a Data Acquisition System for a Smart Ankle-Foot Device using real-time EMG sensor data.</p>
+                    </li>
+                    <li>
+                        <strong>Research Project</strong> (Mahindra University, 2022 - 2023)
+                        <p>Conducted research on emotion analysis of AI-generated content using NLP techniques.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
-            for (let i = 0; i < 1000; i++) {
-                const geometry = shapes[i % shapes.length];
-                const material = new THREE.MeshBasicMaterial({ color: colors[i % colors.length] });
-                const particle = new THREE.Mesh(geometry, material);
-                particle.position.x = Math.random() * 2000 - 1000;
-                particle.position.y = Math.random() * 2000 - 1000;
-                particle.position.z = Math.random() * 2000 - 1000;
-                scene.add(particle);
-                particles.push(particle);
-            }
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <div class="container">
+                <h3>Education</h3>
+                <ul>
+                    <li><strong>Master’s in Artificial Intelligence</strong> - Cardiff University (2024-Present)</li>
+                    <li><strong>Bachelor of Technology in Computer Science</strong> - Mahindra University (2020-2024)</li>
+                </ul>
+            </div>
+        </section>
 
-            window.addEventListener('resize', onWindowResize, false);
-        }
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h3>Skills</h3>
+                <p>Python, TensorFlow, Keras, FastAPI, NLP, Computer Vision, Data Analysis, Machine Learning.</p>
+            </div>
+        </section>
 
-        function animate() {
-            requestAnimationFrame(animate);
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h3>Contact</h3>
+                <p>Email: niranjannirru6@gmail.com</p>
+                <p>Location: Cardiff, Wales, UK</p>
+            </div>
+        </section>
+    </main>
 
-            particles.forEach(particle => {
-                particle.position.z += 5; // Move particles towards the camera
-                if (particle.position.z > 1000) particle.position.z -= 2000;
-            });
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Uppini Niranjan - All Rights Reserved</p>
+        </div>
+    </footer>
 
-            renderer.render(scene, camera);
-        }
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-    </script>
 </body>
 </html>
