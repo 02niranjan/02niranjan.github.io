@@ -9,33 +9,33 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Prevent scrolling on the body */
+            overflow: hidden; // Keeps the body from scrolling
             font-family: 'Arial', sans-serif;
-            background: #000022; /* Deep space blue */
+            background: #000022; // Deep space blue background
             display: flex;
             justify-content: center;
             align-items: center;
         }
         #content {
-            position: relative;
-            top: -50%; /* Adjust based on total height for vertical centering */
-            transform: translateY(50%); /* Centrally align content */
-            color: #ffffff;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            color: #ffffff; // White text
             padding: 20px;
             width: 90%;
-            max-width: 800px;
-            background: rgba(0, 0, 0, 0.8);
+            max-width: 960px;
+            background: rgba(0, 0, 0, 0.8); // Semi-transparent background
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 1); // Cyan glow
             z-index: 2;
-            overflow-y: auto; /* Enable vertical scrolling */
-            max-height: 80vh; /* Limit content height */
-            scrollbar-width: thin;
-            scrollbar-color: #00FFFF #000022; /* Style for scrollbar */
+            overflow-y: auto; // Allows content to scroll
+            max-height: 80vh; // Limits content height for visibility
+            scrollbar-color: #00FFFF #000022; // Styles scrollbar
         }
         h1, h2 {
             text-align: center;
-            color: #00FFFF; /* Cyan color for headings */
+            color: #00FFFF; // Cyan color for headings
         }
         p, li {
             font-size: 16px;
@@ -46,7 +46,7 @@
             padding-left: 20px;
         }
         a {
-            color: #00FF00; /* Green links */
+            color: #00FF00; // Green links
         }
         canvas {
             display: block;
