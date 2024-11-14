@@ -38,6 +38,9 @@ body {
     height: 100vh;
     text-align: center;
     overflow: hidden;
+    opacity: 1;
+    transform: scale(1); /* Start at full scale */
+    transition: transform 0.5s ease, opacity 0.5s ease; /* Smooth transition on shrink */
 }
 
 .background-video {
@@ -62,7 +65,7 @@ body {
     width: 250px;
     height: auto;
     margin-bottom: 20px;
-    transition: transform 0.4s ease;
+    transition: transform 1s ease, opacity 1s ease;
 }
 
 .profile-image img {
@@ -71,6 +74,7 @@ body {
     object-fit: cover;
     border-radius: 8px;
     filter: brightness(1.1) contrast(1.1);
+    transition: transform 0.3s ease;
 }
 
 .hero h1 {
@@ -79,12 +83,20 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
     line-height: 1.2;
+    transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .hero p {
     max-width: 600px;
     color: var(--profile-text-color);
     font-size: 1.3em;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Shrink Effect when Scrolling */
+.shrink {
+    transform: scale(0.8); /* Shrink the section */
+    opacity: 0.5; /* Reduce opacity as it shrinks */
 }
 
 /* Content Section Styling */
@@ -96,11 +108,17 @@ body {
     min-height: 100vh;
     padding: 60px 20px;
     text-align: center;
-    background-color: var(--about-box-color);
-    color: var(--about-text-color);
+    opacity: 0;
+    transform: scale(1.05); /* Initial slightly larger scale for scroll reveal */
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.content-section .background-video {
+.content-section.visible {
+    opacity: 1;
+    transform: scale(1); /* Return to normal scale */
+}
+
+.background-video {
     position: absolute;
     top: 0;
     left: 0;
@@ -153,7 +171,7 @@ body {
     margin-bottom: 20px;
     color: var(--primary-black);
     font-weight: bold;
-    background: rgba(255, 255, 255, 0.85); /* Light translucent background */
+    background: rgba(255, 255, 255, 0.85);
     padding: 10px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -164,7 +182,7 @@ body {
     max-width: 800px;
     font-size: 1.2em;
     color: inherit;
-    background: rgba(255, 255, 255, 0.85); /* Translucent background for readability */
+    background: rgba(255, 255, 255, 0.85);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
