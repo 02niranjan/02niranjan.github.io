@@ -8,7 +8,7 @@
         /* Basic styling */
         body, html {
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
             font-family: Arial, sans-serif;
             color: #ffffff;
             background-color: #000;
@@ -21,6 +21,8 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 10;
         }
         h1 {
             font-size: 3em;
@@ -48,6 +50,8 @@
             position: absolute;
             top: 0;
             left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: 0;
         }
     </style>
@@ -92,39 +96,57 @@
 
     <canvas id="canvas"></canvas>
 
-    <!-- Three.js Library -->
+    <!-- Three.js and GLTFLoader Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
+
     <script>
-        // Three.js Setup
+        // Set up the scene, camera, and renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        // Add a rotating 3D Torus
-        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-        const material = new THREE.MeshStandardMaterial({ color: 0x0077ff, wireframe: true });
-        const torusKnot = new THREE.Mesh(geometry, material);
-        scene.add(torusKnot);
 
         // Lighting
-        const pointLight = new THREE.PointLight(0xffffff, 1);
-        pointLight.position.set(20, 20, 20);
-        scene.add(pointLight);
+        const light = new THREE.PointLight(0xffffff, 1.5);
+        light.position.set(10, 10, 10);
+        scene.add(light);
 
-        camera.position.z = 50;
+        camera.position.z = 5;
 
-        // Animation function
-        function animate() {
-            requestAnimationFrame(animate);
-            torusKnot.rotation.x += 0.01;
-            torusKnot.rotation.y += 0.01;
-            renderer.render(scene, camera);
-        }
-        animate();
+        // Load the Iron Man Model
+        const loader = new THREE.GLTFLoader();
+        loader.load('path/to/ironman.glb', function(gltf) {
+            const model = gltf.scene;
+            scene.add(model);
 
-        // Resize function
+            // Position model and create a firing point for the blast
+            model.position.set(0, -1, 0);
+
+            // Create the energy blast effect
+            const blastGeometry = new THREE.SphereGeometry(0.05, 32, 32);
+            const blastMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
+            const blast = new THREE.Mesh(blastGeometry, blastMaterial);
+            blast.position.set(1, 0, 0);  // Adjust to match Iron Man's hand position
+            scene.add(blast);
+
+            // Animate the blast firing
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Rotate model for a dynamic effect
+                model.rotation.y += 0.01;
+
+                // Move blast outward
+                blast.position.x += 0.1;  // Move blast forward for firing effect
+                if (blast.position.x > 5) blast.position.x = 1;  // Reset position after firing
+
+                renderer.render(scene, camera);
+            }
+            animate();
+        });
+        
+        // Handle window resizing
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
