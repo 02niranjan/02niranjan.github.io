@@ -1,16 +1,16 @@
 /* Root Color Variables */
 :root {
     --primary-black: #000000;
-    --profile-text-color: #606c38;
-    --hero-bg: #bc6c25;
+    --profile-text-color: #14213d;
+    --hero-bg: #90e0ef;
     --about-box-color: #fdf0d5;
-    --about-text-color: #c1121f;
+    --about-text-color: #bc6c25;
     --education-box-color: #002855;
     --education-text-color: #001233;
     --experience-box-color: #f8edeb;
-    --experience-text-color: #ffb5a7;
+    --experience-text-color: #bc6c25;
     --skills-box-color: #3a5a40;
-    --skills-text-color: #dad7cd;
+    --skills-text-color: #011627;
     --interests-box-color: #ffffff; /* Snow-like background */
     --interests-text-color: #6b705c; /* Dark, snow-appropriate color */
 }
