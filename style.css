@@ -1,1 +1,152 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #353535; /* Dark background */
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Section */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #284b63; /* Dark cyan */
+    color: #ffffff;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+header h1 {
+    display: inline-block;
+    font-size: 1.8em;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+header nav {
+    float: right;
+}
+
+header nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #d9d9d9; /* Light gray for links */
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: #3c6e71; /* Hover color */
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background-color: #284b63; /* Dark cyan */
+    color: #ffffff;
+    text-align: center;
+    padding-top: 60px; /* Spacing for fixed header */
+}
+
+.hero h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.hero p {
+    font-size: 1.2em;
+    color: #d9d9d9;
+    max-width: 600px;
+}
+
+/* Main Content */
+main {
+    padding-top: 60px; /* Space for fixed header */
+}
+
+.section {
+    background-color: #353535; /* Dark section background */
+    color: #d9d9d9;
+    margin: 20px 0;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.section:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+.section h3 {
+    color: #3c6e71; /* Dark teal */
+    margin-bottom: 15px;
+}
+
+.section p, .section li {
+    font-size: 1em;
+    color: #d9d9d9; /* Light gray */
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/* Footer Section */
+footer {
+    background-color: #284b63; /* Dark cyan */
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    font-size: 0.9em;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    header nav a {
+        margin-left: 10px;
+        font-size: 0.9em;
+    }
+
+    .hero h2 {
+        font-size: 2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .section {
+        padding: 20px;
+    }
+}
 
