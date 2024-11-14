@@ -9,33 +9,30 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden; // Keeps the body from scrolling
             font-family: 'Arial', sans-serif;
-            background: #000022; // Deep space blue background
+            background: #000022; /* Deep space blue background */
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
         }
         #content {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            left: 50%;
-            color: #ffffff; // White text
-            padding: 20px;
             width: 90%;
-            max-width: 960px;
-            background: rgba(0, 0, 0, 0.8); // Semi-transparent background
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 1); // Cyan glow
-            z-index: 2;
-            overflow-y: auto; // Allows content to scroll
-            max-height: 80vh; // Limits content height for visibility
-            scrollbar-color: #00FFFF #000022; // Styles scrollbar
+            box-shadow: 0 0 20px rgba(0, 255, 255, 1); /* Cyan glow */
+            position: absolute;
+            top: 10%; /* Adjust to ensure visibility */
+            bottom: 10%; /* Adjust to ensure visibility */
+            overflow-y: auto; /* Ensures scrollability */
+            scrollbar-width: thin;
+            scrollbar-color: #00FFFF #000022; /* Cyan scrollbar for visibility */
+            color: #ffffff; /* White text */
         }
         h1, h2 {
             text-align: center;
-            color: #00FFFF; // Cyan color for headings
+            color: #00FFFF; /* Cyan color for headings */
         }
         p, li {
             font-size: 16px;
@@ -45,9 +42,6 @@
         ul {
             padding-left: 20px;
         }
-        a {
-            color: #00FF00; // Green links
-        }
         canvas {
             display: block;
             position: fixed;
@@ -55,7 +49,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: 0;
         }
     </style>
 </head>
