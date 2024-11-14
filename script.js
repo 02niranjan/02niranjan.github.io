@@ -1,33 +1,30 @@
-// Variables for hero, profile image, background video, and sections
+// Variables for hero section, profile image, background video, and sections
 const heroSection = document.querySelector(".hero");
 const profileImage = document.querySelector(".profile-image");
 const video = document.querySelector(".hero .background-video");
 const sections = document.querySelectorAll(".content-section");
 
-// Initial fade-in effect for hero section and all content sections
+// Initial fade-in effect for hero section on page load
 window.addEventListener("load", () => {
     heroSection.style.transition = "opacity 1.5s ease, transform 1.5s ease";
     heroSection.style.opacity = "1";
     heroSection.style.transform = "scale(1)";
-
-    sections.forEach(section => {
-        section.style.transition = "opacity 1.2s ease, transform 1.2s ease";
-        section.style.opacity = "1";
-        section.style.transform = "scale(1)";
-    });
+    
+    // Reveal sections in view on load
+    revealSections();
 });
 
-// Smooth Scroll and Parallax Effects on Scroll
+// Smooth scroll and parallax effects on scroll
 window.addEventListener("scroll", () => {
     const scrollPosition = window.scrollY;
     const heroHeight = heroSection.offsetHeight;
 
-    // Apply parallax effect to background video
+    // Apply parallax effect to background video in the hero section
     if (video) {
         video.style.transform = `translateY(${scrollPosition * 0.4}px) scale(1.1)`;
     }
 
-    // Shrink effect for profile image and hero text on scroll
+    // Shrink effect for profile image and hero text when scrolling down
     if (scrollPosition > heroHeight * 0.3) {
         document.body.classList.add("shrink");
     } else {
@@ -38,11 +35,12 @@ window.addEventListener("scroll", () => {
     revealSections();
 });
 
-// Function to reveal sections on scroll with smooth entrance animations
+// Reveal sections on scroll for smooth entrance animation
 function revealSections() {
-    const triggerBottom = window.innerHeight * 0.8;
+    const triggerBottom = window.innerHeight * 0.85;
     sections.forEach(section => {
         const sectionTop = section.getBoundingClientRect().top;
+
         if (sectionTop < triggerBottom) {
             section.classList.add("visible");
         } else {
@@ -50,9 +48,6 @@ function revealSections() {
         }
     });
 }
-
-// Initial call to reveal any sections already in view on load
-revealSections();
 
 // 3D Tilt Effect on Profile Image Hover
 profileImage.addEventListener("mousemove", (e) => {
@@ -69,10 +64,25 @@ profileImage.addEventListener("mouseleave", () => {
     profileImage.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
 });
 
-// Parallax scrolling effect for each content section
-document.addEventListener("scroll", () => {
-    sections.forEach((section, index) => {
-        const speed = 0.15 * (index + 1); // Vary speed by section index
-        section.style.transform = `translateY(${window.scrollY * speed}px)`;
-    });
-});
+// Parallax scrolling effect for each content section, but with stabilization on stop
+let lastScrollY = window.scrollY;
+let ticking = false;
+
+function handleScroll() {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const currentScrollY = window.scrollY;
+            sections.forEach((section, index) => {
+                const speed = 0.1 * (index + 1); // Control parallax depth by section
+                const offset = currentScrollY * speed;
+                section.style.transform = `translateY(${offset}px)`;
+            });
+            lastScrollY = currentScrollY;
+            ticking = false;
+        });
+        ticking = true;
+    }
+}
+
+// Throttle scroll events for performance and stable animations
+window.addEventListener("scroll", handleScroll);
