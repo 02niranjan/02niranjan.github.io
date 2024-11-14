@@ -8,26 +8,28 @@
         body, html {
             height: 100%;
             margin: 0;
+            padding: 0;
             background: #000;
-            overflow-x: hidden;
-            overflow-y: auto; /* Allow vertical scrolling */
+            overflow: hidden;
             font-family: 'Arial', sans-serif;
             color: white;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
         #content {
             position: absolute;
-            top: 10%;
-            width: 80%;
-            text-align: center;
-            padding: 20px;
+            top: 20px;
+            left: 20px;
+            right: 20px;
             background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+            z-index: 2;
             overflow-y: auto;
-            max-height: 90%; /* Adjust as per content size */
+            max-height: 90%;
             scrollbar-width: thin;
             scrollbar-color: blue white;
         }
@@ -37,13 +39,14 @@
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 1;
         }
         h1, h2 {
-            margin: 20px 0;
+            text-align: center;
         }
         p, li {
-            font-size: 1.1em;
-            margin-bottom: 10px;
+            font-size: 1em;
+            margin-bottom: 0.5em;
         }
         ul {
             list-style-type: none;
@@ -79,7 +82,6 @@
         <h2>Interests</h2>
         <p>Apart from my technical interests, I enjoy playing cricket, photography, and exploring new technologies in AI.</p>
     </div>
-
     <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
@@ -92,22 +94,22 @@
 
         function init() {
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
-            camera.position.z = 1000;
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.z = 1500;
 
             renderer = new THREE.WebGLRenderer({ alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
+            document.body.insertBefore(renderer.domElement, document.body.firstChild); // Ensures canvas is behind content
 
             // Create nodes (neurons)
             const geometry = new THREE.SphereGeometry(20, 32, 16);
-            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 20; i++) { // Increased number of nodes for complexity
                 const node = new THREE.Mesh(geometry, material);
-                node.position.x = Math.random() * 800 - 400;
-                node.position.y = Math.random() * 800 - 400;
-                node.position.z = Math.random() * 800 - 400;
+                node.position.x = Math.random() * 2000 - 1000;
+                node.position.y = Math.random() * 2000 - 1000;
+                node.position.z = Math.random() * 2000 - 1000;
                 nodes.push(node);
                 scene.add(node);
             }
@@ -136,9 +138,9 @@
 
         function animate() {
             requestAnimationFrame(animate);
-            nodes.forEach((node) => {
-                node.rotation.x += 0.005;
-                node.rotation.y += 0.005;
+            nodes.forEach((node, i) => {
+                node.rotation.x += 0.01;
+                node.rotation.y += 0.01;
             });
             renderer.render(scene, camera);
         }
