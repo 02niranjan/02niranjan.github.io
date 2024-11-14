@@ -11,40 +11,37 @@
             padding: 0;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
-            background: #020024; /* Deep space blue */
+            background: #000022; /* Dark blue background */
         }
         #content {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #E0E0E0; /* Soft white text */
+            top: 50px;
+            left: 50px;
+            color: #ffffff; /* White text */
             padding: 20px;
-            width: 90%;
-            max-width: 800px;
-            background: rgba(20, 20, 40, 0.9); /* Dark background for content */
-            border-radius: 15px;
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.75); /* Bright cyan glow */
+            width: calc(100% - 100px);
+            max-width: 960px;
+            background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 1); /* Cyan glow */
             z-index: 2;
-            overflow-y: auto;
-            max-height: 80vh;
-            scrollbar-width: thin;
-            scrollbar-color: #00FFFF #000022; /* Cyan scrollbar */
+            overflow: auto;
+            scrollbar-color: #00FFFF #0000FF; /* Scrollbar styling */
         }
         h1, h2 {
             text-align: center;
-            color: #00FFAA; /* Aqua heading */
+            color: #00FFFF; /* Cyan color for headings */
         }
         p, li {
             font-size: 16px;
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 10px;
         }
         ul {
             padding-left: 20px;
         }
         a {
-            color: #FFAA00; /* Bright yellow links */
+            color: #00FF00; /* Green links */
         }
         canvas {
             display: block;
@@ -103,14 +100,18 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
 
-            // Create particles
-            for (let i = 0; i < 500; i++) {
-                let geometry = new THREE.SphereGeometry(0.5, 24, 24);
-                let material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-                if (i % 5 === 0) { // Every fifth particle is a different color and size
-                    geometry = new THREE.BoxGeometry(1, 1, 1);
-                    material = new THREE.MeshBasicMaterial({ color: 0x00ffaa });
-                }
+            // Create various shapes
+            const shapes = [
+                new THREE.SphereGeometry(0.5, 24, 24),
+                new THREE.BoxGeometry(1, 1, 1),
+                new THREE.ConeGeometry(0.5, 1, 32),
+                new THREE.CylinderGeometry(0.5, 0.5, 1, 32)
+            ];
+            const colors = [0xffffff, 0x00ffaa, 0xff0000, 0xffff00]; // White, aqua, red, yellow
+
+            for (let i = 0; i < 1000; i++) {
+                const geometry = shapes[i % shapes.length];
+                const material = new THREE.MeshBasicMaterial({ color: colors[i % colors.length] });
                 const particle = new THREE.Mesh(geometry, material);
                 particle.position.x = Math.random() * 2000 - 1000;
                 particle.position.y = Math.random() * 2000 - 1000;
@@ -126,8 +127,8 @@
             requestAnimationFrame(animate);
 
             particles.forEach(particle => {
-                particle.rotation.x += 0.01;
-                particle.rotation.y += 0.01;
+                particle.position.z += 5; // Move particles towards the camera
+                if (particle.position.z > 1000) particle.position.z -= 2000;
             });
 
             renderer.render(scene, camera);
