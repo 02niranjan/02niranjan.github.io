@@ -14,20 +14,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden; /* Prevents scrolling on the body */
         }
         #content {
             width: 90%;
             max-width: 800px;
+            max-height: 80vh; /* Limit height for scrolling */
             padding: 20px;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 1); /* Cyan glow */
-            position: absolute;
-            top: 10%; /* Adjust to ensure visibility */
-            bottom: 10%; /* Adjust to ensure visibility */
-            overflow-y: auto; /* Ensures scrollability */
+            overflow-y: auto; /* Enables vertical scrolling */
             scrollbar-width: thin;
-            scrollbar-color: #00FFFF #000022; /* Cyan scrollbar for visibility */
+            scrollbar-color: #00FFFF #000022; /* Cyan scrollbar styling */
             color: #ffffff; /* White text */
         }
         h1, h2 {
