@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uppini Niranjan - Dynamic 3D Experience</title>
+    <title>Uppini Niranjan - AI Exploration</title>
     <style>
         body, html {
             height: 100%;
@@ -14,20 +14,22 @@
             font-family: 'Arial', sans-serif;
             color: white;
             display: flex;
-            align-items: center;
             justify-content: center;
-            flex-direction: column;
+            align-items: center;
         }
         #content {
-            max-width: 600px;
+            position: absolute;
+            top: 10%;
+            width: 80%;
             text-align: center;
             padding: 20px;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
-            margin: 5% auto;
-            position: relative;
-            z-index: 1;
+            overflow-y: auto;
+            max-height: 90%; /* Adjust as per content size */
+            scrollbar-width: thin;
+            scrollbar-color: blue white;
         }
         canvas {
             position: fixed;
@@ -37,11 +39,11 @@
             height: 100%;
         }
         h1, h2 {
-            margin: 10px 0;
+            margin: 20px 0;
         }
         p, li {
             font-size: 1.1em;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
         ul {
             list-style-type: none;
@@ -81,39 +83,65 @@
     <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        let camera, scene, renderer;
+        let nodes = [];
+        let connections = [];
 
-        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-        const material = new THREE.MeshStandardMaterial({ color: 0x0077ff, emissive: 0x0022ff, emissiveIntensity: 0.5, wireframe: true });
-        const torusKnot = new THREE.Mesh(geometry, material);
-        scene.add(torusKnot);
-
-        const ambientLight = new THREE.AmbientLight(0x404040);
-        const pointLight = new THREE.PointLight(0xffffff, 1.5);
-        pointLight.position.set(25, 50, 25);
-        scene.add(ambientLight);
-        scene.add(pointLight);
-
-        camera.position.z = 50;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            torusKnot.rotation.x += 0.01;
-            torusKnot.rotation.y += 0.01;
-            renderer.render(scene, camera);
-        }
-
+        init();
         animate();
 
-        window.addEventListener('resize', () => {
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 5000);
+            camera.position.z = 1000;
+
+            renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Create nodes (neurons)
+            const geometry = new THREE.SphereGeometry(20, 32, 16);
+            const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
+            for (let i = 0; i < 10; i++) {
+                const node = new THREE.Mesh(geometry, material);
+                node.position.x = Math.random() * 800 - 400;
+                node.position.y = Math.random() * 800 - 400;
+                node.position.z = Math.random() * 800 - 400;
+                nodes.push(node);
+                scene.add(node);
+            }
+
+            // Create connections (synapses)
+            nodes.forEach((source, i) => {
+                nodes.forEach((target, j) => {
+                    if (i !== j) {
+                        const material = new THREE.LineBasicMaterial({ color: 0x00ffff });
+                        const geometry = new THREE.BufferGeometry().setFromPoints([source.position, target.position]);
+                        const line = new THREE.Line(geometry, material);
+                        connections.push(line);
+                        scene.add(line);
+                    }
+                });
+            });
+
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            nodes.forEach((node) => {
+                node.rotation.x += 0.005;
+                node.rotation.y += 0.005;
+            });
+            renderer.render(scene, camera);
+        }
     </script>
 </body>
 </html>
