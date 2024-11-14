@@ -19,15 +19,16 @@
         #content {
             width: 90%;
             max-width: 800px;
-            height: 80vh; /* Set height to 80% of the viewport to allow scrolling */
+            max-height: 80vh; /* Set max-height to 80% of the viewport to allow scrolling */
             padding: 20px;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 1); /* Cyan glow */
-            overflow-y: scroll; /* Ensures vertical scrolling */
+            overflow-y: auto; /* Enables vertical scrolling */
             scrollbar-width: thin;
             scrollbar-color: #00FFFF #000022; /* Cyan scrollbar styling */
             color: #ffffff; /* White text */
+            z-index: 1; /* Ensure it stays on top of the canvas */
         }
         h1, h2 {
             text-align: center;
